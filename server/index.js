@@ -2,20 +2,18 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
-
 import postRoutes from "./routes/posts.js";
 
 const app = express();
-
-//route use
-
-app.use("/posts", postRoutes);
 
 //basic usage
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
+//route use
+
+app.use("/posts", postRoutes);
 //mongoose connection
 
 const CONNECTION_URL =
