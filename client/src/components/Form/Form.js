@@ -7,10 +7,10 @@ import { createPosts } from "../../actions/posts";
 const Form = () => {
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
-    creator: "",
+    author: "",
     title: "",
     message: "",
-    tags: "",
+
     selectedFile: "",
   });
 
@@ -24,16 +24,14 @@ const Form = () => {
 
     //cleaning the state value
     setPostData({
-      creator: "",
+      author: "",
       title: "",
       message: "",
-      tags: "",
+
       selectedFile: "",
     });
   };
 
-  //clear
-  const clear = () => {};
   return (
     <>
       <Paper className={classes.paper}>
@@ -45,18 +43,18 @@ const Form = () => {
         >
           <Typography variant="h6">Add Post</Typography>
           <TextField
-            name="creator"
-            variant="outlined"
-            label="Creator"
+            name="author"
+            variant="standard"
+            label="Author"
             fullWidth
             value={postData.creator}
             onChange={(e) =>
-              setPostData({ ...postData, creator: e.target.value })
+              setPostData({ ...postData, author: e.target.value })
             }
           />
           <TextField
             name="title"
-            variant="outlined"
+            variant="standard"
             label="Title"
             fullWidth
             value={postData.title}
@@ -66,7 +64,7 @@ const Form = () => {
           />
           <TextField
             name="message"
-            variant="outlined"
+            variant="standard"
             label="Message"
             fullWidth
             value={postData.message}
@@ -74,14 +72,7 @@ const Form = () => {
               setPostData({ ...postData, message: e.target.value })
             }
           />
-          <TextField
-            name="tags"
-            variant="outlined"
-            label="Tags"
-            fullWidth
-            value={postData.tags}
-            onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
-          />
+
           <div className={classes.fileInput}>
             <FileBase
               type="file"
@@ -99,16 +90,7 @@ const Form = () => {
             type="submit"
             fullWidth
           >
-            Submit
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            fullWidth
-            onClick={clear}
-          >
-            Clear
+            Upload
           </Button>
         </form>
       </Paper>
