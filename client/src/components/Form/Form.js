@@ -1,35 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Paper, TextField, Button, Typography } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import useStyles from "./styles";
-import { useDispatch } from "react-redux";
-import { createPosts } from "../../actions/posts";
-const Form = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { createPosts, updatePost } from "../../actions/posts";
+
+const Form = ({ currentId, setCurrentId }) => {
+  //finding specified post for editing
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     author: "",
     title: "",
     message: "",
-
     selectedFile: "",
   });
 
   const classes = useStyles();
 
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
+
   //form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(postData);
-    dispatch(createPosts(postData));
 
-    //cleaning the state value
-    setPostData({
-      author: "",
-      title: "",
-      message: "",
+    //currentId is there
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+      //cleaning the state value
+      setCurrentId(null);
+      setPostData({
+        author: "",
+        title: "",
+        message: "",
+        selectedFile: "",
+      });
+    } else {
+      dispatch(createPosts(postData));
+      //cleaning the state value
+      setCurrentId(null);
+      setPostData({
+        author: "",
+        title: "",
+        message: "",
 
-      selectedFile: "",
-    });
+        selectedFile: "",
+      });
+    }
   };
 
   return (
@@ -41,13 +63,15 @@ const Form = () => {
           className={`${classes.root}${classes.form}`}
           onSubmit={handleSubmit}
         >
-          <Typography variant="h6">Add Post</Typography>
+          <Typography variant="h6">
+            {currentId ? "Edit Post" : "Create post"}
+          </Typography>
           <TextField
             name="author"
             variant="standard"
             label="Author"
             fullWidth
-            value={postData.creator}
+            value={postData.author}
             onChange={(e) =>
               setPostData({ ...postData, author: e.target.value })
             }
@@ -77,6 +101,7 @@ const Form = () => {
             <FileBase
               type="file"
               multiple={false}
+              value={postData.selectedFile}
               onDone={({ base64 }) =>
                 setPostData({ ...postData, selectedFile: base64 })
               }
