@@ -26,7 +26,7 @@ const Form = () => {
           className={`${classes.root}${classes.form}`}
           onSubmit={handleSubmit}
         >
-          <Typography variant="h6">Creating a memory</Typography>
+          <Typography variant="h6">Add Post</Typography>
           <TextField
             name="creator"
             variant="outlined"
