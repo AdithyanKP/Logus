@@ -3,9 +3,10 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import postRoutes from "./routes/posts.js";
-
+import dotenv from "dotenv";
 const app = express();
 
+dotenv.config();
 //basic usage
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -16,11 +17,14 @@ app.use(cors());
 app.use("/posts", postRoutes);
 //mongoose connection
 
-const CONNECTION_URL =
-  "mongodb+srv://adithyankp:adithyankp123@cluster0.wu2ak.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+/* onst CONNECTION_URL =
+  "mongodb+srv://adithyankp:adithyankp123@cluster0.wu2ak.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"; */
 
 mongoose
-  .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.CONNECTION_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() =>
     app.listen(PORT, () => console.log(`Server running on Port ${PORT}`))
   )
