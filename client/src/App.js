@@ -12,9 +12,10 @@ const App = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  //fetching posts from the database
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch, currentId]);
+  }, [currentId, dispatch]);
 
   return (
     <Container maxWidth="lg">
@@ -22,6 +23,7 @@ const App = () => {
         <Typography className={classes.heading} variant="h2" align="center">
           C-Share
         </Typography>
+
         <img className={classes.image} src={memories} alt="logo" height="100" />
       </AppBar>
 

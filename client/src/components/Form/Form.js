@@ -25,13 +25,13 @@ const Form = ({ currentId, setCurrentId }) => {
   }, [post]);
 
   //form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(postData);
 
     //currentId is there
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      await dispatch(updatePost(currentId, postData));
       //cleaning the state value
       setCurrentId(null);
       setPostData({
@@ -41,7 +41,7 @@ const Form = ({ currentId, setCurrentId }) => {
         selectedFile: "",
       });
     } else {
-      dispatch(createPosts(postData));
+      await dispatch(createPosts(postData));
       //cleaning the state value
       setCurrentId(null);
       setPostData({
@@ -115,7 +115,7 @@ const Form = ({ currentId, setCurrentId }) => {
             type="submit"
             fullWidth
           >
-            Upload
+            {currentId ? "Submit" : "Upload"}
           </Button>
         </form>
       </Paper>
