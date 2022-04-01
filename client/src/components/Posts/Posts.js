@@ -13,7 +13,9 @@ const Posts = ({ currentId, setCurrentId }) => {
   return (
     <>
       {!posts.length ? (
-        <CircularProgress />
+        <div>
+          <h3>No Posts found</h3>
+        </div>
       ) : (
         <Grid
           className={classes.mainContainer}

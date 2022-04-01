@@ -4,6 +4,7 @@ import FileBase from "react-file-base64";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { createPosts, updatePost } from "../../actions/posts";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const Form = ({ currentId, setCurrentId }) => {
   //finding specified post for editing
@@ -114,6 +115,7 @@ const Form = ({ currentId, setCurrentId }) => {
             size="large"
             type="submit"
             fullWidth
+            startIcon={<CloudUploadIcon />}
           >
             {currentId ? "Submit" : "Upload"}
           </Button>
