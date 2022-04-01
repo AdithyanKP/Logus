@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
+import {
+  Container,
+  AppBar,
+  Typography,
+  Grow,
+  Grid,
+  Button,
+} from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
 import Posts from "./components/Posts/Posts";
 import Form from "./components/Form/Form";
 import useStyles from "./styles";
-import memories from "./images/newone.png";
+
 import { getPosts } from "./actions/posts";
+import Navbar from "./components/Navbar/Navbar";
 const App = () => {
   const [currentId, setCurrentId] = useState(null);
   const dispatch = useDispatch();
@@ -19,13 +27,15 @@ const App = () => {
 
   return (
     <Container maxWidth="lg">
-      <AppBar className={classes.appBar} position="static" color="inherit">
+      {/*   <AppBar className={classes.appBar} position="static" color="inherit">
         <Typography className={classes.heading} variant="h2" align="center">
           C-Share
         </Typography>
 
         <img className={classes.image} src={memories} alt="logo" height="100" />
-      </AppBar>
+        <Button color="inherit">Login</Button>
+      </AppBar> */}
+      <Navbar />
 
       <Grow in>
         <Container>
