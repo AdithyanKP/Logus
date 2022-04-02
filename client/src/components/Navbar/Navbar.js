@@ -4,6 +4,7 @@ import memories from "../../images/adhi.jpg";
 import Toolbar from "@material-ui/core/Toolbar";
 
 import useStyles from "./styles";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const user = null;
   const classes = useStyles();
@@ -22,7 +23,12 @@ const Navbar = () => {
             C-Share
           </Typography>
 
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/auth"
+          >
             {user ? "Log out" : "Sign In"}
           </Button>
         </Toolbar>
