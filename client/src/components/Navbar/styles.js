@@ -13,4 +13,7 @@ export default makeStyles((theme) => ({
     marginLeft: 10,
   },
   image: {},
+  userName: {
+    padding: 5,
+  },
 }));
