@@ -1,13 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Typography, Button } from "@material-ui/core";
 import memories from "../../images/adhi.jpg";
 import Toolbar from "@material-ui/core/Toolbar";
 
+import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("Profile")));
   console.log(user);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("Profile")));
+  }, [location]);
+
+  //logout
+  const logoutHandle = () => {
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+    setUser(null);
+  };
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -28,15 +47,24 @@ const Navbar = () => {
               {user.result.name}
             </Typography>
           )}
-
-          <Button
-            variant="contained"
-            color={user ? "secondary" : "primary"}
-            component={Link}
-            to="/auth"
-          >
-            {user ? "Log out" : "Sign In"}
-          </Button>
+          {user ? (
+            <Button
+              variant="contained"
+              color={user ? "secondary" : "primary"}
+              onClick={logoutHandle}
+            >
+              logout
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color={user ? "secondary" : "primary"}
+              component={Link}
+              to="/auth"
+            >
+              Sign In
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </div>
