@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/users.js";
 import dotenv from "dotenv";
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 //route use
 
 app.use("/posts", postRoutes);
+app.use("/user", userRoutes);
 //mongoose connection
 
 /* onst CONNECTION_URL =

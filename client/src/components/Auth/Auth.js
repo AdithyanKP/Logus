@@ -14,19 +14,44 @@ import LockOutLinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { signIn, signUp } from "../../actions/auth";
 
 const Auth = () => {
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState(initialState);
+
+  //style
   const classes = useStyle();
 
+  //redux dispatch
   const dispatch = useDispatch();
+
+  //react-router-dom navigate
   const navigate = useNavigate();
+
   //form submission
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isSignup) {
+      dispatch(signIn(formData, navigate));
+    } else {
+      dispatch(signUp(formData, navigate));
+    }
+  };
 
   //handlechange
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+  };
 
   //handle show password
 
@@ -40,7 +65,7 @@ const Auth = () => {
     handleShowPassword(false);
   };
 
-  //google success
+  //google authetication success
   const successResponse = async (res) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
@@ -51,10 +76,11 @@ const Auth = () => {
       console.log(error);
     }
   };
-  //google failed
+  //google authentication  failed
   const failedResponse = () => {
     console.log("google auth error");
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={3}>
@@ -66,8 +92,8 @@ const Auth = () => {
           <Grid container spacing={2}>
             {isSignup && (
               <>
-                <Input name="first name" label="First name" autofocus Half />
-                <Input name="last name" label="Last name" Half />
+                <Input name="firstName" label="First name" autofocus Half />
+                <Input name="lastName" label="Last name" Half />
               </>
             )}
             <>
@@ -89,7 +115,7 @@ const Auth = () => {
             </>
             {isSignup && (
               <Input
-                name="confirm password"
+                name="confirmPassword"
                 label="Repeat Password"
                 handleChange={handleChange}
               />
@@ -97,6 +123,7 @@ const Auth = () => {
           </Grid>
           <Button
             color="primary"
+            type="submit"
             fullWidth
             variant="contained"
             className={classes.submit}
