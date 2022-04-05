@@ -5,9 +5,30 @@ import jwt from "jsonwebtoken";
 
 //signin
 
-export const signin = async (req, res) => {};
+export const signin = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const exsistingUser = await user.findOne({ email });
+    if (!exsistingUser)
+      return res.status(404).json({ message: "No user found" });
+    const isPasswordCrct = bcrypt.compare(password, exsistingUser.password);
+    if (!isPasswordCrct)
+      return res.status(404).json({ message: "Password incorrect" });
+
+    const token = jwt.sign(
+      { email: exsistingUser.email, id: exsistingUser._id },
+      "test",
+      { expiresIn: "1h" }
+    );
+    res.status(200).json({ result: exsistingUser, token });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 //signup
+
 export const signup = async (req, res) => {
   const { email, password, confirmPassword, FirstName, LastName } = req.body;
 
