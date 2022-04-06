@@ -7,6 +7,8 @@ import { createPosts, updatePost } from "../../actions/posts";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const Form = ({ currentId, setCurrentId }) => {
+  const user = JSON.parse(localStorage.getItem("Profile"));
+  console.log(user);
   //finding specified post for editing
   const post = useSelector((state) =>
     currentId ? state.posts.find((p) => p._id === currentId) : null
@@ -32,7 +34,9 @@ const Form = ({ currentId, setCurrentId }) => {
 
     //currentId is there
     if (currentId) {
-      await dispatch(updatePost(currentId, postData));
+      await dispatch(
+        updatePost(currentId, { ...postData, creator: user?.result?.name })
+      );
       //cleaning the state value
       setCurrentId(null);
       setPostData({
@@ -42,7 +46,7 @@ const Form = ({ currentId, setCurrentId }) => {
         selectedFile: "",
       });
     } else {
-      await dispatch(createPosts(postData));
+      await dispatch(createPosts({ ...postData, creator: user?.result?.name }));
       //cleaning the state value
       setCurrentId(null);
       setPostData({
@@ -54,7 +58,15 @@ const Form = ({ currentId, setCurrentId }) => {
       });
     }
   };
-
+  if (!user?.result?.name) {
+    return (
+      <Paper className={classes.paper} elevation={6}>
+        <Typography variant="h6" align="center">
+          Please Sign in
+        </Typography>
+      </Paper>
+    );
+  }
   return (
     <>
       <Paper className={classes.paper}>
