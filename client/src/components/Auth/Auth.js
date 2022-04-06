@@ -42,15 +42,15 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignup) {
-      dispatch(signIn(formData, navigate));
-    } else {
       dispatch(signUp(formData, navigate));
+    } else {
+      dispatch(signIn(formData, navigate));
     }
   };
 
   //handlechange
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   //handle show password
@@ -62,7 +62,7 @@ const Auth = () => {
   //swich mode
   const switchMode = () => {
     setIsSignup((prev) => !prev);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   //google authetication success
@@ -92,8 +92,19 @@ const Auth = () => {
           <Grid container spacing={2}>
             {isSignup && (
               <>
-                <Input name="firstName" label="First name" autofocus Half />
-                <Input name="lastName" label="Last name" Half />
+                <Input
+                  name="firstName"
+                  label="First name"
+                  autofocus
+                  Half
+                  handleChange={handleChange}
+                />
+                <Input
+                  name="lastName"
+                  label="Last name"
+                  Half
+                  handleChange={handleChange}
+                />
               </>
             )}
             <>
@@ -117,6 +128,7 @@ const Auth = () => {
               <Input
                 name="confirmPassword"
                 label="Repeat Password"
+                type={showPassword ? "text" : "password"}
                 handleChange={handleChange}
               />
             )}
