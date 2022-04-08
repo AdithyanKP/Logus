@@ -30,7 +30,11 @@ const Navbar = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="inherit">
+      <AppBar
+        position="static"
+        color="inherit"
+        style={{ backgroundColor: "#40acad" }}
+      >
         <Toolbar>
           <img
             className={classes.image}
@@ -39,7 +43,11 @@ const Navbar = () => {
             height="80"
             width="80"
           />
-          <Typography variant="h3" className={classes.title}>
+          <Typography
+            variant="h3"
+            className={classes.title}
+            style={{ fontWeight: 500, fontFamily: "fantasy" }}
+          >
             C-Share
           </Typography>
           {user && (

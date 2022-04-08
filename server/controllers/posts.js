@@ -17,8 +17,8 @@ export const createPosts = async (req, res) => {
 
   const newPost = new PostMessage({
     ...post,
-    creator: req.userId,
-    createdAt: new Date().toISOString,
+    creator: req.userId, //get from the middleware logedin user id
+    createdAt: new Date().toISOString(),
   });
   try {
     await newPost.save();
@@ -67,12 +67,13 @@ export const likePosts = async (req, res) => {
 
   const post = await PostMessage.findById(id);
 
-  const index = post.likes.findIndex((id) => id !== req.userId);
+  const index = post.likes.findIndex((id) => id === String(req.userId));
 
-  if (index == -1) {
+  if (index === -1) {
     post.likes.push(req.userId);
+  } else {
+    post.likes = post.likes.filter((id) => id !== String(req.userId));
   }
-  post.likes.filter((id) => id !== req.userId);
 
   const response = await PostMessage.findByIdAndUpdate(id, post, { new: true });
   res.json(response);

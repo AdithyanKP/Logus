@@ -15,7 +15,7 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
-    author: "",
+    /*  author: "", */
     title: "",
     message: "",
     selectedFile: "",
@@ -35,22 +35,22 @@ const Form = ({ currentId, setCurrentId }) => {
     //currentId is there
     if (currentId) {
       await dispatch(
-        updatePost(currentId, { ...postData, creator: user?.result?.name })
+        updatePost(currentId, { ...postData, name: user?.result?.name })
       );
       //cleaning the state value
       setCurrentId(null);
       setPostData({
-        author: "",
+        /*   author: "", */
         title: "",
         message: "",
         selectedFile: "",
       });
     } else {
-      await dispatch(createPosts({ ...postData, creator: user?.result?.name }));
+      await dispatch(createPosts({ ...postData, name: user?.result?.name }));
       //cleaning the state value
       setCurrentId(null);
       setPostData({
-        author: "",
+        /*  author: "", */
         title: "",
         message: "",
 
@@ -69,7 +69,7 @@ const Form = ({ currentId, setCurrentId }) => {
   }
   return (
     <>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={{ backgroundColor: "#40acad" }}>
         <form
           autoComplete="off"
           noValidate
@@ -79,7 +79,7 @@ const Form = ({ currentId, setCurrentId }) => {
           <Typography variant="h6">
             {currentId ? "Edit Post" : "Create post"}
           </Typography>
-          <TextField
+          {/*   <TextField
             name="author"
             variant="standard"
             label="Author"
@@ -88,7 +88,7 @@ const Form = ({ currentId, setCurrentId }) => {
             onChange={(e) =>
               setPostData({ ...postData, author: e.target.value })
             }
-          />
+          /> */}
           <TextField
             name="title"
             variant="standard"
