@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 import user from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import { sendEmail } from "../utils/sendEmail.js";
 //signin
 
 export const signin = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email);
 
   try {
     const exsistingUser = await user.findOne({ email });
@@ -52,5 +53,28 @@ export const signup = async (req, res) => {
     res.status(200).json({ result, token });
   } catch (error) {
     res.status(500).json({ message: "something ent wrong" });
+  }
+};
+
+//forgot password
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  try {
+    const exsistingUser = await user.findOne({ email });
+    if (!exsistingUser)
+      return res.status(404).json({ message: "No user found" });
+    const token = jwt.sign(
+      { email: exsistingUser.email, id: exsistingUser._id },
+      "test",
+      { expiresIn: "1h" }
+    );
+    //link in the mail
+    const link = `${process.env.BASE_URL}/password-reset/${exsistingUser._id}/${token}`;
+    //sendmail section
+    await sendEmail(exsistingUser.email, "password reset", link);
+  } catch (error) {
+    res.send("An error occured");
+    console.log(error);
   }
 };

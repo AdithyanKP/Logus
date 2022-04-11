@@ -12,6 +12,9 @@ import {
 } from "@material-ui/core";
 import LockOutLinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
+
+import { Link } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signIn, signUp } from "../../actions/auth";
@@ -80,6 +83,8 @@ const Auth = () => {
   const failedResponse = () => {
     console.log("google auth error");
   };
+  //forgot password
+  /* const forgotPassword = () => {}; */
 
   return (
     <Container component="main" maxWidth="xs">
@@ -167,6 +172,9 @@ const Auth = () => {
                 {isSignup
                   ? "Already have an account ? Sign In"
                   : "Don't have an acoount? Sign Up"}
+              </Button>
+              <Button component={Link} to="/auth/forgotpassword">
+                {!isSignup && "Forgot Password ?"}
               </Button>
             </Grid>
           </Grid>

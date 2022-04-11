@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { AUTH } from "../constants/actionTypes";
+import { AUTH, FORGOT } from "../constants/actionTypes";
 export const signIn = (formData, navigate) => async (dispatch) => {
   try {
     //log in action
@@ -22,5 +22,14 @@ export const signUp = (formData, navigate) => async (dispatch) => {
   } catch (error) {
     /* console.log(error); */
     console.log("adithyan");
+  }
+};
+
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    await api.forgotpassword(email);
+    dispatch({ type: FORGOT });
+  } catch (error) {
+    console.log(error);
   }
 };
