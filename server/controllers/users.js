@@ -62,6 +62,7 @@ export const forgotPassword = async (req, res) => {
   console.log(email);
   try {
     const exsistingUser = await user.findOne({ email });
+    console.log(exsistingUser);
     if (!exsistingUser)
       return res.status(404).json({ message: "No user found" });
     const token = jwt.sign(
@@ -70,11 +71,35 @@ export const forgotPassword = async (req, res) => {
       { expiresIn: "1h" }
     );
     //link in the mail
-    const link = `${process.env.BASE_URL}/password-reset/${exsistingUser._id}/${token}`;
+    const link = `${process.env.BASE_URL}reset-password/${exsistingUser._id}/${token}`;
     //sendmail section
     await sendEmail(exsistingUser.email, "password reset", link);
   } catch (error) {
     res.send("An error occured");
+    console.log(error);
+  }
+};
+
+//password reset
+export const resetPassword = async (req, res) => {
+  const { password, confirmPassword } = req.body;
+  console.log(req.body);
+  const { id } = req.params;
+  console.log(req.params);
+  const { token } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).send("Id not valid");
+
+    if (password !== confirmPassword)
+      return res.status(400).json({ message: "Password not match" });
+    const User = await user.findById(id);
+    if (!User) return res.status(400).json({ message: "user not found" });
+    const passwordHash = await bcrypt.hash(password, 12);
+    User.password = passwordHash;
+    await User.save();
+    console.log("password reset successfully");
+  } catch (error) {
     console.log(error);
   }
 };

@@ -10,6 +10,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState(initialState);
   const dispatch = useDispatch();
 
+  //forgot password submit action
   const handleClick = () => {
     console.log(email);
     dispatch(forgotPassword(email));
