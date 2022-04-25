@@ -65,6 +65,7 @@ export const forgotPassword = async (req, res) => {
     console.log(exsistingUser);
     if (!exsistingUser)
       return res.status(404).json({ message: "No user found" });
+    //token creation
     const token = jwt.sign(
       { email: exsistingUser.email, id: exsistingUser._id },
       "test",

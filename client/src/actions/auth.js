@@ -3,7 +3,7 @@ import { AUTH, FORGOT, RESET } from "../constants/actionTypes";
 export const signIn = (formData, navigate) => async (dispatch) => {
   try {
     //log in action
-    const { data } = await api.signin(formData);
+    const { data } = await api.signin(formData); //data containes token and result
     dispatch({ type: AUTH, data });
     navigate("/");
   } catch (error) {
