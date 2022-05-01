@@ -33,20 +33,13 @@ const Navbar = () => {
       <AppBar
         position="static"
         color="inherit"
-        style={{ backgroundColor: "#40acad" }}
+        style={{ backgroundColor: "white" }}
       >
         <Toolbar>
-          <img
-            className={classes.image}
-            src={memories}
-            alt="logo"
-            height="80"
-            width="80"
-          />
           <Typography
             variant="h3"
             className={classes.title}
-            style={{ fontWeight: 500, fontFamily: "fantasy" }}
+            style={{ fontWeight: 500, fontFamily: "cursive" }}
           >
             C-Share
           </Typography>
