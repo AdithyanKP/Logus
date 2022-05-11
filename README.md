@@ -1,2 +1,6 @@
 # C-Share-MERN
-Full Stack Social media  App
+full stack social media app
+frontend
+React js
+backend
+Nodejs,expressjs, mongodb
