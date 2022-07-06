@@ -13,7 +13,10 @@ export const signin = async (req, res) => {
     const exsistingUser = await user.findOne({ email });
     if (!exsistingUser)
       return res.status(404).json({ message: "No user found" });
-    const isPasswordCrct = bcrypt.compare(password, exsistingUser.password);
+    const isPasswordCrct = await bcrypt.compare(
+      password,
+      exsistingUser.password
+    );
     if (!isPasswordCrct)
       return res.status(404).json({ message: "Password incorrect" });
 
