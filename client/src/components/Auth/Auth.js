@@ -58,14 +58,14 @@ const Auth = () => {
 
   //handle show password
 
-  const handleShowPassword = () => {
+  /* const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
+  }; */
 
   //swich mode
   const switchMode = () => {
     setIsSignup((prev) => !prev);
-    setShowPassword(false);
+    /*  setShowPassword(false); */
   };
 
   //google authetication success
@@ -126,7 +126,7 @@ const Auth = () => {
                 autofocus
                 type={showPassword ? "text" : "password"}
                 handleChange={handleChange}
-                handleShowPassword={handleShowPassword}
+                /* handleShowPassword={handleShowPassword} */
               />
             </>
             {isSignup && (
