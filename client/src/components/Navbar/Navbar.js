@@ -41,7 +41,7 @@ const Navbar = () => {
             className={classes.title}
             style={{ fontWeight: 500, fontFamily: "cursive" }}
           >
-            C-Share
+            Logus
           </Typography>
           {user && (
             <Typography variant="h6" className={classes.userName}>
