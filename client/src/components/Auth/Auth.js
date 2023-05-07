@@ -28,7 +28,7 @@ const Auth = () => {
     confirmPassword: "",
   };
 
-  const [showPassword, setShowPassword] = useState(false);
+  const showPassword = false;
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(initialState);
 

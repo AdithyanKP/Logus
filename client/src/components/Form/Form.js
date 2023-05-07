@@ -69,7 +69,7 @@ const Form = ({ currentId, setCurrentId }) => {
   }
   return (
     <>
-      <Paper className={classes.paper} style={{ backgroundColor: "#40acad" }}>
+      <Paper className={classes.paper} style={{ backgroundColor: "white" }}>
         <form
           autoComplete="off"
           noValidate
