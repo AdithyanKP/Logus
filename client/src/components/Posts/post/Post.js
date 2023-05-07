@@ -53,7 +53,7 @@ const Post = ({ post, currentId, setCurrentId }) => {
 
   return (
     <>
-      <Card className={classes.card} style={{ backgroundColor: "#40acad" }}>
+      <Card className={classes.card} style={{ backgroundColor: "white" }}>
         <CardMedia
           className={classes.media}
           image={

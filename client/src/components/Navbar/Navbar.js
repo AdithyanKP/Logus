@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Typography, Button } from "@material-ui/core";
-import memories from "../../images/adhi.jpg";
 import Toolbar from "@material-ui/core/Toolbar";
 
 import { useDispatch } from "react-redux";
