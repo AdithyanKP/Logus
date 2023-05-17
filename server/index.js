@@ -33,4 +33,4 @@ mongoose
   .catch((error) => console.log(error.message));
 
 //port setup
-const PORT = process.env.PORT || 443;
+const PORT = 80;
