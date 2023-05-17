@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //axios instance
-const API = axios.create({ baseURL: "http://54.206.15.111:5000/" });
+const API = axios.create({ baseURL: "https://54.206.15.111:5000/" });
 
 //for adding the json token to the middleware,
 API.interceptors.request.use((req) => {
